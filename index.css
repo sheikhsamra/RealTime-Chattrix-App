@@ -167,7 +167,7 @@ button {
 
 /* Signup Button */
 #signup {
-  background: linear-gradient(90deg,  #ff9bd7,#ff02a2, rgb(110, 48, 90));
+  background: linear-gradient(90deg,  #ff9bd7,#ff02a2, #ff9bd7);
   color: #fff;
   box-shadow: 0 0 20px rgba(245, 93, 184, 0.4);
 }
