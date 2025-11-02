@@ -49,7 +49,6 @@ body {
   background: radial-gradient(circle at top left, rgb(204, 112, 170), rgb(128, 62, 99) ,black);
   position: relative;
   overflow: hidden;
-  padding: 50px 10px;
 }
 
 .left-side img {
@@ -100,7 +99,6 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 50px 10px;
 }
 
 /* Glassy Form */
@@ -227,9 +225,11 @@ a:hover {
   }
   .left-side {
     height: 40vh;
+    padding: 50px 10px;
   }
   .right-side {
     height: 60vh;
+    padding: 50px 10px;
   }
 }
 
