@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Realtime Chat</title>
-  <link rel="stylesheet" href="chat.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chattrix Chat</title>
+  <link rel="stylesheet" href="chat.css" />
+  <!-- ✅ Emoji Picker Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4.6.2/dist/index.min.js"></script>
 </head>
-<body>
+<body class="light">
   <div class="chat-container">
-  <div class="chat-header">
-    <div class="heading">
-      <img src="./images/chat.png" alt="">
-      <h2>Chattrix</h2>
+    <div class="chat-header">
+      <div class="heading">
+        <img src="./images/chat.png" alt="logo" />
+        <h2>Chattrix</h2>
+      </div>
+      <div class="header-buttons">
+        <button id="themeToggle">🌙</button>
+        <button id="wallpaperSelect">🖼️ Change Wallpaper</button>
+        <button id="logout"><img src="./images/logout-Icon.png" alt="" srcset=""></button>
+        <input type="file" id="wallpaperInput" accept="image/*" style="display: none;" />
+      </div>
     </div>
-    
-  <div class="header-buttons">
-    <button id="themeToggle">🌞</button>
-    <button id="logout">Logout</button>
+    <!-- 🌄 Wallpaper Selector Panel -->
+<div class="wallpaper-panel" id="wallpaperPanel">
+  <h3>Select Wallpaper</h3>
+  <div class="wallpaper-options">
+    <img src="./images/well1.png" alt="Wallpaper 3" class="wall-option">
+    <img src="./images/well2.png" alt="Wallpaper 3" class="wall-option">
+    <img src="./images/well3.jpg" alt="Wallpaper 1" class="wall-option">
+    <img src="./images/well4.png" alt="Wallpaper 2" class="wall-option">
+    <img src="./images/well5.jpg" alt="Wallpaper 2" class="wall-option">
+    <button id="uploadWallpaper">Upload from Gallery</button>
   </div>
 </div>
 
@@ -24,7 +39,8 @@
     <div id="messageBox" class="message-box"></div>
 
     <div class="input-area">
-      <input type="text" id="message" placeholder="Type your message..." />
+      <button id="emojiBtn">😊</button>
+      <input type="text" id="message" placeholder="Type a message..." />
       <button id="sendBtn">Send</button>
     </div>
   </div>

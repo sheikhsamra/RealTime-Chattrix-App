@@ -1,134 +1,162 @@
-/* 🌸 Reset & Base */
+/* 🌸 Chattrix Light & Dark Theme - UserName Page Styling */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* 🌈 Background with soft animated gradient */
 body {
-  background: linear-gradient(120deg, rgb(204, 112, 170), rgb(128, 62, 99), black);
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
-  overflow-y: auto;
-  animation: fadeIn 1s ease-in-out;
+  min-height: 100vh;
+  overflow: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* ✨ Container */
-#container {
+/* ☀️ Light Mode */
+body.light {
+  background: linear-gradient(135deg, #ffe1f0, #fff1fa, #ffffff);
+  color: #333;
+}
+
+/* 🌚 Dark Mode */
+body.dark {
+  background: linear-gradient(135deg, #1a001d, #3a0138, #5b004d);
+  color: #fff;
+}
+
+/* 🌈 User Container */
+#user-container {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
   border-radius: 20px;
-  padding: 40px 45px;
+  padding: 40px 50px;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 0, 180, 0.3);
+  box-shadow: 0 0 25px rgba(255, 0, 180, 0.25);
   width: 90%;
   max-width: 400px;
-  text-align: center;
-  color: #fff;
-  box-shadow: 0 0 30px rgba(255, 0, 140, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.3s ease;
-  animation: floatUp 1s ease-in-out;
-}
-#container:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 40px rgba(255, 0, 140, 0.6);
+  animation: fadeIn 1.2s ease-in-out;
+  transition: all 0.4s ease;
 }
 
-/* 🏷️ Heading */
-#container h1 {
-  color: white;
-  /* -webkit-text-fill-color: transparent; */
+body.light #user-container {
+  background: rgba(255, 255, 255, 0.85);
+  color: #333;
+  border-color: rgba(255, 105, 170, 0.2);
+  box-shadow: 0 0 25px rgba(255, 105, 170, 0.15);
+}
+
+body.dark #user-container:hover {
+  box-shadow: 0 0 30px rgba(255, 0, 180, 0.4);
+}
+
+/* Heading */
+#user-container h1 {
+  font-size: 1.8rem;
   margin-bottom: 25px;
-  font-size: 1.5rem;
+  background: linear-gradient(90deg, #ff9bd7, #ff02a2, rgb(110, 48, 90));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 8px rgba(255, 0, 180, 0.4);
 }
 
-/* ✍️ Input Field */
-input {
+/* Input */
+#username {
   width: 100%;
-  padding: 12px 15px;
-  border-radius: 12px;
+  padding: 12px 14px;
   margin-bottom: 20px;
-  border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-  font-size: 15px;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  border: none;
   transition: all 0.3s ease;
 }
-input::placeholder {
-  color: rgba(255,255,255,0.7);
-}
-input:focus {
-  border-color: #ff6ec4;
-  box-shadow: 0 0 15px rgba(255,110,196,0.5);
-  outline: none;
-  transform: scale(1.02);
+
+body.dark #username {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* 🔘 Buttons */
+body.light #username {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#username::placeholder {
+  opacity: 0.7;
+}
+
+/* Buttons */
 button {
   width: 100%;
   padding: 12px;
-  border-radius: 12px;
+  margin-top: 10px;
   border: none;
-  cursor: pointer;
-  font-weight: 600;
+  border-radius: 10px;
   font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 15px;
 }
 
 /* Continue Button */
 #user-btn {
-  background: linear-gradient(90deg, #ff9bd7, #ff02a2, #ff9bd7);
+  background: linear-gradient(90deg, #ff9bd7, #ff02a2, rgb(110, 48, 90));
   color: #fff;
-  box-shadow: 0 0 20px rgba(245, 93, 184, 0.4);
+  box-shadow: 0 0 20px rgba(255, 0, 180, 0.3);
 }
+
 #user-btn:hover {
   transform: scale(1.07);
-  box-shadow: 2px 2px 25px rgba(104, 1, 70, 0.6);
+  box-shadow: 0 0 25px rgba(255, 0, 180, 0.5);
 }
 
 /* Logout Button */
 #logout {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.3);
-}
-#logout:hover {
-  background: rgba(255,255,255,0.25);
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255,0,140,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* 📄 Text */
-p {
-  margin-top: 10px;
-  color: rgba(255,255,255,0.8);
+body.light #logout {
+  background: rgba(255, 255, 255, 0.85);
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#logout:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 180, 0.4);
+}
+
+/* Text */
+#user-container p {
+  margin-top: 15px;
   font-size: 0.9rem;
+  opacity: 0.85;
 }
 
 /* ✨ Animations */
-@keyframes floatUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* 📱 Responsive */
-@media (max-width: 600px) {
-  body {
-    align-items: flex-start;
-    padding: 30px 0;
+@media (max-width: 500px) {
+  #user-container {
+    padding: 30px 25px;
   }
-  #container {
-    width: 90%;
-    margin-top: 40px;
+
+  #user-container h1 {
+    font-size: 1.5rem;
   }
 }

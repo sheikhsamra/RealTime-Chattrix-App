@@ -7,8 +7,8 @@
 }
 
 body {
-  height: 100vh;
   display: flex;
+  height: 100vh;
   justify-content: center;
   align-items: center;
   transition: background 0.5s ease, color 0.5s ease;
@@ -16,13 +16,38 @@ body {
 
 /* ☀️ Light Mode */
 body.light {
-  background: linear-gradient(135deg, #ffe1f0, #fff1fa, #ffffff);
   color: #333;
+  background: linear-gradient(135deg, #f4b2d3, #d68bbc, #ffffff);
 }
 
-/* 🌚 Dark Mode */
+/* 🌚 Dark Mode (New Softer Theme) */
 body.dark {
-  background: linear-gradient(135deg, #1a001d, #3a0138, #5b004d);
+  background: linear-gradient(135deg, #2a1a40, #4b2356, #602a6c);
+  color: #f9eaff;
+}
+
+/* Dark mode chat container */
+body.dark .chat-container {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 25px rgba(255, 150, 220, 0.4);
+}
+
+/* Dark header */
+body.dark .chat-header {
+  background: linear-gradient(90deg, #b95cff, #ff66b3, #ff9bd7);
+  color: white;
+}
+
+/* Dark input field */
+body.dark .input-area input {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Dark buttons */
+body.dark .input-area button {
+  background: linear-gradient(90deg, #ff9bd7, #c74fff, #9232a8);
   color: #fff;
 }
 
@@ -35,8 +60,61 @@ body.dark {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: all 0.4s ease;
+  background-image: var(--chat-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  transition: background-image 0.4s ease-in-out;
 }
+.wallpaper-panel {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 1000;
+}
+.wallpaper-panel h3 {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  text-align: center;
+}
+.wallpaper-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.wall-option {
+  width: 120px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.wall-option:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 0, 200, 0.4);
+}
+#uploadWallpaper {
+  margin-top: 10px;
+  background: linear-gradient(90deg, #ff9bd7, #ff02a2);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
 
 body.dark .chat-container {
   background: rgba(255, 255, 255, 0.08);
@@ -56,11 +134,13 @@ body.light .chat-container {
   padding: 18px 25px;
   font-weight: 600;
 }
-.chat-header img{
+
+.chat-header img {
   width: 50px;
   height: 50px;
 }
-.heading{
+
+.heading {
   display: flex;
   align-items: center;
 }
@@ -79,6 +159,10 @@ body.light .chat-header {
 .header-buttons {
   display: flex;
   gap: 10px;
+}
+#logout img{
+  width: 22px;
+  height: 22px;
 }
 
 .header-buttons button {
@@ -197,6 +281,10 @@ body.light .received .msg-info {
   background: rgba(255, 255, 255, 0.9);
   color: #333;
 }
+body.dark .received .msg-info {
+  background: linear-gradient(90deg, #ff9bf0, #ffffff);
+  color: #333;
+}
 
 /* 🧠 Username */
 .username {
@@ -214,6 +302,7 @@ body.light .received .msg-info {
   align-items: center;
   gap: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
 }
 
 .input-area input {
@@ -227,8 +316,8 @@ body.light .received .msg-info {
 }
 
 body.dark .input-area input {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: linear-gradient(90deg, #ff9bf0, #ffffff);
+  color: #000000;
 }
 body.light .input-area input {
   background: #fff;
@@ -257,6 +346,31 @@ body.light .input-area input {
   box-shadow: 0 0 15px rgba(255, 0, 140, 0.5);
 }
 
+/* 💛 Emoji Picker (Added, WhatsApp Style Popup) */
+
+#emojiBtn {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+#emoji-picker {
+  z-index: 100;
+  box-shadow: 0 0 10px rgba(255, 0, 180, 0.3);
+  border-radius: 10px;
+}
+
+
+body.light .emoji-picker {
+  background: #fff;
+}
+
+body.dark .emoji-picker {
+  background: #2b1d33;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* 📱 Responsive */
 @media (max-width: 700px) {
   .chat-container {
@@ -273,5 +387,11 @@ body.light .input-area input {
   .input-area button {
     font-size: 0.9rem;
     padding: 10px 16px;
+  }
+
+  .emoji-picker {
+    bottom: 60px;
+    right: 5px;
+    transform: scale(0.95);
   }
 }
