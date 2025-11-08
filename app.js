@@ -24,6 +24,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
 
 import { EmojiButton } from "https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4.6.2/dist/index.min.js";
+// import swal from 'sweetalert';
 
 // Firebase Config
 const firebaseConfig = {
@@ -49,11 +50,21 @@ document.getElementById("signup")?.addEventListener("click", () => {
   const password = document.getElementById("password").value;
 
   createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("Signup successful!");
+  .then(() => {
+    Swal.fire({
+    title: "Congratulations 🎉!",
+    text: "SignUp Successfully!",
+    icon: "success",
+    draggable: true,
+    iconColor: "#fb99e6ff",
+    confirmButtonText: "OK",
+    confirmButtonColor: "#fb99e6ff",
+    theme: "auto",
+}).then(() => {
       window.location.href = "user.html";
-    })
-    .catch((error) => alert(error.message));
+    });
+  })
+  .catch((error) => alert(error.message));
 });
 
 document.getElementById("login")?.addEventListener("click", () => {
@@ -61,12 +72,25 @@ document.getElementById("login")?.addEventListener("click", () => {
   const password = document.getElementById("password").value;
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("Login successful!");
+     .then(() => {
+    Swal.fire({
+    title: "Login Successfully!",
+    icon: "success",
+    draggable: true,
+    iconColor: "#fa84e0ff",
+    confirmButtonText: "OK",
+    confirmButtonColor: "#fb99e6ff",
+    theme: "auto",
+}).then(() => {
       window.location.href = "user.html";
-    })
-    .catch((error) => alert(error.message));
+    });
+  })
+    .catch((error) => {
+      swal.fire("Error!", error.message, "error");
+    });
 });
+
+
 
 document.getElementById("google-btn")?.addEventListener("click", () => {
   signInWithPopup(auth, provider)
