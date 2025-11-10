@@ -233,16 +233,16 @@ button {
 }
 
 /* Signup & Google buttons */
-#signup {
+#signup, #login {
   background: linear-gradient(135deg, #ff02a2, #ffbde7, rgb(255, 204, 0));
   color: #fff;
   box-shadow: 0 0 20px rgba(255, 0, 180, 0.3);
 }
-body.dark #signup {
+body.dark #signup, body.dark #login {
   background: linear-gradient(45deg, #166c71, #00eaff, rgb(242, 255, 0));
   box-shadow: 0 0 15px rgba(255, 105, 170, 0.2);
 }
-#signup:hover { transform: scale(1.07); box-shadow: 0 0 25px rgba(255,0,180,0.5); }
+#signup:hover, #login:hover { transform: scale(1.07); box-shadow: 0 0 25px rgba(255,0,180,0.5); }
 
 #google-btn {
   margin-top: 12px;
