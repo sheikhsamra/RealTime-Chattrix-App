@@ -64,9 +64,9 @@ document.getElementById("signup")?.addEventListener("click", () => {
         text: "SignUp Successfully!",
         icon: "success",
         draggable: true,
-        iconColor: "#fb99e6ff",
+        iconColor: "#ff7fb0ff",
         confirmButtonText: "OK",
-        confirmButtonColor: "#fb99e6ff",
+        confirmButtonColor: "#ff7fb0ff",
         theme: "auto",
       }).then(() => {
         window.location.href = "user.html";
@@ -90,9 +90,9 @@ document.getElementById("login")?.addEventListener("click", () => {
         title: "Login Successfully!",
         icon: "success",
         draggable: true,
-        iconColor: "#fa84e0ff",
+        iconColor: "#ff7fb0ff",
         confirmButtonText: "OK",
-        confirmButtonColor: "#fb99e6ff",
+        confirmButtonColor: "#ff7fb0ff",
         theme: "auto",
       }).then(() => {
         window.location.href = "user.html";
@@ -112,9 +112,9 @@ document.getElementById("google-btn")?.addEventListener("click", () => {
         title: "Google SignIn Successful!",
         icon: "success",
         draggable: true,
-        iconColor: "#fa84e0ff",
+        iconColor: "#ff7fb0ff",
         confirmButtonText: "OK",
-        confirmButtonColor: "#fb99e6ff",
+        confirmButtonColor: "#ff7fb0ff",
         theme: "auto",
       }).then(() => {
         window.location.href = "user.html";
@@ -130,9 +130,9 @@ document.getElementById("logout")?.addEventListener("click", () => {
         title: "Logged Out Successfully!",
         icon: "success",
         draggable: true,
-        iconColor: "#fa84e0ff",
+        iconColor: "#ff7fb0ff",
         confirmButtonText: "OK",
-        confirmButtonColor: "#fb99e6ff",
+        confirmButtonColor: "#ff7fb0ff",
         theme: "auto",
       }).then(() => {
         localStorage.removeItem("userName");
@@ -150,9 +150,9 @@ document.getElementById("user-btn")?.addEventListener("click", () => {
       title: "Enter a valid username!",
       icon: "warning",
       draggable: true,
-      iconColor: "#fa84e0ff",
+      iconColor: "#ff7fb0ff",
       confirmButtonText: "OK",
-      confirmButtonColor: "#fb99e6ff",
+      confirmButtonColor: "#ff7fb0ff",
       theme: "auto",
     });
 
@@ -162,9 +162,9 @@ document.getElementById("user-btn")?.addEventListener("click", () => {
     text: "You have successfully set your username.",
     icon: "success",
     draggable: true,
-    iconColor: "#fa84e0ff",
+    iconColor: "#ff7fb0ff",
     confirmButtonText: "OK",
-    confirmButtonColor: "#fb99e6ff",
+    confirmButtonColor: "#ff7fb0ff",
     theme: "auto",
   }).then(() => {
     window.location.href = "chat.html";
@@ -249,26 +249,73 @@ const formattedTime = `${hours}:${minutes} ${ampm}`;
   messageBox.appendChild(msgWrapper);
   messageBox.scrollTop = messageBox.scrollHeight;
 
-  // ------------------ EDIT FUNCTIONALITY ------------------
-  msgWrapper.querySelector(".edit-btn")?.addEventListener("click", async () => {
-    const newText = prompt("Edit your message:", data.text);
-    if (newText && newText.trim()) {
-      await update(ref(db, "messages/" + key), { text: newText, edited: true });
-
-      // Update DOM
-      msgWrapper.querySelector(".message-bubble").textContent = newText;
-      const editedLabel = msgWrapper.querySelector(".edited-label");
-      editedLabel.style.display = "block";
+// EDIT FUNCTIONALITY______________________
+msgWrapper.querySelector(".edit-btn")?.addEventListener("click", async () => {
+  const { value: newText } = await Swal.fire({
+    title: 'Edit your message',
+    input: 'text',
+    inputLabel: 'Message:',
+    inputValue: data.text,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    confirmButtonColor: '#ff7fb0ff',
+    cancelButtonText: 'Cancel',
+    iconColor: "#ff7fb0ff",
+    icon: 'info',
+    inputValidator: (value) => {
+      if (!value.trim()) {
+        return 'Message cannot be empty!';
+      }
     }
   });
 
-  // ------------------ DELETE FUNCTIONALITY ------------------
-  msgWrapper.querySelector(".del-btn")?.addEventListener("click", async () => {
-    if (confirm("Delete this message?")) {
-      await remove(ref(db, "messages/" + key));
-      msgWrapper.remove();
-    }
+  if (newText) {
+    await update(ref(db, "messages/" + key), { text: newText, edited: true });
+
+    // Update DOM
+    msgWrapper.querySelector(".message-bubble").textContent = newText;
+    const editedLabel = msgWrapper.querySelector(".edited-label");
+    editedLabel.style.display = "block";
+
+    Swal.fire({
+      title: 'Edited!',
+      text: 'Your message has been updated.',
+      icon: 'success',
+      timer: 1500,
+      showConfirmButton: false
+    });
+  }
+});
+
+
+// DELETE FUNCTIONALITY
+msgWrapper.querySelector(".del-btn")?.addEventListener("click", async () => {
+  const result = await Swal.fire({
+    title: 'Are you sure?',
+    text: "Do you want to delete this message?",
+    icon: 'warning',
+    iconColor: '#ff7fb0ff',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel',
+    reverseButtons: true,
+    confirmButtonColor: '#ff7fb0ff',
   });
+
+  if (result.isConfirmed) {
+    await remove(ref(db, "messages/" + key));
+    msgWrapper.remove();
+
+    Swal.fire({
+      title: 'Deleted!',
+      text: 'Your message has been deleted.',
+      icon: 'success',
+      timer: 1500,
+      showConfirmButton: false
+    });
+  }
+});
+
 });
 
 // -------------------- THEME TOGGLE --------------------
