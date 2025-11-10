@@ -1,5 +1,4 @@
-/* 🌸 Chattrix Light & Dark Theme - UserName Page Styling */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+/* 🌸 Chattrix Light & Dark Theme - UserName Page Styling Updated */
 
 /* Reset & Base */
 * {
@@ -24,9 +23,10 @@ body.light {
   color: #333;
 }
 
-/* 🌚 Dark Mode */
+/* 🌚 Dark Mode - Signup Page Style */
 body.dark {
-  background: linear-gradient(135deg, #1a001d, #3a0138, #5b004d);
+  /* background: linear-gradient(135deg, #1a001d, #3a0138, #5b004d); */
+  background-color: #000000;
   color: #fff;
 }
 
@@ -45,6 +45,7 @@ body.dark {
   transition: all 0.4s ease;
 }
 
+/* Light Mode Container */
 body.light #user-container {
   background: rgba(255, 255, 255, 0.85);
   color: #333;
@@ -52,8 +53,16 @@ body.light #user-container {
   box-shadow: 0 0 25px rgba(255, 105, 170, 0.15);
 }
 
+/* Dark Mode Container */
+body.dark #user-container {
+  background-color: #000000;
+  color: #fff;
+  border: 2px solid #00fbff;
+  box-shadow: 0 0 30px rgb(0, 247, 255);
+}
+
 body.dark #user-container:hover {
-  box-shadow: 0 0 30px rgba(255, 0, 180, 0.4);
+  box-shadow: 0 0 40px rgb(0, 255, 247);
 }
 
 /* Heading */
@@ -64,6 +73,13 @@ body.dark #user-container:hover {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 8px rgba(255, 0, 180, 0.4);
+}
+
+/* Dark Mode Heading */
+body.dark #user-container h1 {
+  background: linear-gradient(45deg, #00eaff, #2ba9af, rgb(255, 247, 0));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Input */
@@ -78,16 +94,17 @@ body.dark #user-container:hover {
   transition: all 0.3s ease;
 }
 
-body.dark #username {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
+/* Input Light/Dark */
 body.light #username {
   background: rgba(255, 255, 255, 0.9);
   color: #333;
   border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.dark #username {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 #username::placeholder {
@@ -109,9 +126,14 @@ button {
 
 /* Continue Button */
 #user-btn {
-  background: linear-gradient(90deg, #ff9bd7, #ff02a2, rgb(110, 48, 90));
+  background: linear-gradient(135deg, #ff02a2, #ffbde7, rgb(255, 204, 0));
   color: #fff;
   box-shadow: 0 0 20px rgba(255, 0, 180, 0.3);
+}
+
+body.dark #user-btn {
+  background: linear-gradient(45deg, #166c71, #00eaff, rgb(242, 255, 0));
+  box-shadow: 0 0 15px rgba(255, 105, 170, 0.2);
 }
 
 #user-btn:hover {

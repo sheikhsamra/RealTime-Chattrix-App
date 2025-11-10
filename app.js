@@ -24,9 +24,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
 
 import { EmojiButton } from "https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4.6.2/dist/index.min.js";
-// import swal from 'sweetalert';
 
-// Firebase Config
+// -------------------- FIREBASE CONFIG --------------------
 const firebaseConfig = {
   apiKey: "AIzaSyAZFSIi5JHBAHbFZd81D435PKP0ak_mbgg",
   authDomain: "realtime-database-f11e5.firebaseapp.com",
@@ -37,12 +36,18 @@ const firebaseConfig = {
   measurementId: "G-PP9P7L0LW8",
 };
 
-// Initialize Firebase
+// -------------------- INITIALIZE --------------------
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 const storage = getStorage(app);
 const provider = new GoogleAuthProvider();
+
+// -------------------- HELPER FUNCTION --------------------
+function setUserNameFromEmail(email) {
+  const defaultName = email.split("@")[0];
+  localStorage.setItem("userName", defaultName);
+}
 
 // -------------------- AUTH --------------------
 document.getElementById("signup")?.addEventListener("click", () => {
@@ -50,21 +55,24 @@ document.getElementById("signup")?.addEventListener("click", () => {
   const password = document.getElementById("password").value;
 
   createUserWithEmailAndPassword(auth, email, password)
-  .then(() => {
-    Swal.fire({
-    title: "Congratulations 🎉!",
-    text: "SignUp Successfully!",
-    icon: "success",
-    draggable: true,
-    iconColor: "#fb99e6ff",
-    confirmButtonText: "OK",
-    confirmButtonColor: "#fb99e6ff",
-    theme: "auto",
-}).then(() => {
-      window.location.href = "user.html";
-    });
-  })
-  .catch((error) => alert(error.message));
+    .then((userCredential) => {
+      const email = userCredential.user.email;
+      setUserNameFromEmail(email); // ✅ Set username from email
+
+      Swal.fire({
+        title: "Congratulations! 🎉",
+        text: "SignUp Successfully!",
+        icon: "success",
+        draggable: true,
+        iconColor: "#fb99e6ff",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#fb99e6ff",
+        theme: "auto",
+      }).then(() => {
+        window.location.href = "user.html";
+      });
+    })
+    .catch((error) => alert(error.message));
 });
 
 document.getElementById("login")?.addEventListener("click", () => {
@@ -72,31 +80,45 @@ document.getElementById("login")?.addEventListener("click", () => {
   const password = document.getElementById("password").value;
 
   signInWithEmailAndPassword(auth, email, password)
-     .then(() => {
-    Swal.fire({
-    title: "Login Successfully!",
-    icon: "success",
-    draggable: true,
-    iconColor: "#fa84e0ff",
-    confirmButtonText: "OK",
-    confirmButtonColor: "#fb99e6ff",
-    theme: "auto",
-}).then(() => {
-      window.location.href = "user.html";
-    });
-  })
+    .then((userCredential) => {
+      const email = userCredential.user.email;
+      if (!localStorage.getItem("userName")) {
+        setUserNameFromEmail(email); // ✅ Auto-set only if not already set
+      }
+
+      Swal.fire({
+        title: "Login Successfully!",
+        icon: "success",
+        draggable: true,
+        iconColor: "#fa84e0ff",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#fb99e6ff",
+        theme: "auto",
+      }).then(() => {
+        window.location.href = "user.html";
+      });
+    })
     .catch((error) => {
-      swal.fire("Error!", error.message, "error");
+      Swal.fire("Error!", error.message, "error");
     });
 });
 
-
-
 document.getElementById("google-btn")?.addEventListener("click", () => {
   signInWithPopup(auth, provider)
-    .then(() => {
-      alert("Google Sign-In successful!");
-      window.location.href = "user.html";
+    .then((result) => {
+      const email = result.user.email;
+      setUserNameFromEmail(email); // ✅ Google user name
+      Swal.fire({
+        title: "Google SignIn Successful!",
+        icon: "success",
+        draggable: true,
+        iconColor: "#fa84e0ff",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#fb99e6ff",
+        theme: "auto",
+      }).then(() => {
+        window.location.href = "user.html";
+      });
     })
     .catch((error) => alert(error.message));
 });
@@ -104,9 +126,18 @@ document.getElementById("google-btn")?.addEventListener("click", () => {
 document.getElementById("logout")?.addEventListener("click", () => {
   signOut(auth)
     .then(() => {
-      alert("Logged out successfully!");
-      localStorage.removeItem("userName");
-      window.location.href = "index.html";
+      Swal.fire({
+        title: "Logged Out Successfully!",
+        icon: "success",
+        draggable: true,
+        iconColor: "#fa84e0ff",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#fb99e6ff",
+        theme: "auto",
+      }).then(() => {
+        localStorage.removeItem("userName");
+        window.location.href = "index.html";
+      });
     })
     .catch((error) => alert(error.message));
 });
@@ -114,10 +145,30 @@ document.getElementById("logout")?.addEventListener("click", () => {
 // -------------------- USERNAME SET --------------------
 document.getElementById("user-btn")?.addEventListener("click", () => {
   const username = document.getElementById("username").value.trim();
-  if (!username) return alert("Please enter your username!");
+  if (!username)
+    return Swal.fire({
+      title: "Enter a valid username!",
+      icon: "warning",
+      draggable: true,
+      iconColor: "#fa84e0ff",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#fb99e6ff",
+      theme: "auto",
+    });
+
   localStorage.setItem("userName", username);
-  alert(`Welcome, ${username}!`);
-  window.location.href = "chat.html";
+  Swal.fire({
+    title: "Welcome " + username + "!",
+    text: "You have successfully set your username.",
+    icon: "success",
+    draggable: true,
+    iconColor: "#fa84e0ff",
+    confirmButtonText: "OK",
+    confirmButtonColor: "#fb99e6ff",
+    theme: "auto",
+  }).then(() => {
+    window.location.href = "chat.html";
+  });
 });
 
 const currentUser = localStorage.getItem("userName");
@@ -151,11 +202,21 @@ onChildAdded(ref(db, "messages"), (snapshot) => {
   const hue = colorHash % 360;
   const firstLetter = data.name.charAt(0).toUpperCase();
 
+  // Format time
+  const time = new Date(data.time);
+let hours = time.getHours();
+const minutes = time.getMinutes().toString().padStart(2, "0");
+const ampm = hours >= 12 ? "PM" : "AM";
+hours = hours % 12;
+hours = hours ? hours : 12; // 0 -> 12
+const formattedTime = `${hours}:${minutes} ${ampm}`;
+
   if (data.type === "audio") {
     msgWrapper.innerHTML = `
       <div class="msg-info">
         <span class="username">${data.name}</span>
         <audio controls src="${data.url}" style="width:200px;"></audio>
+        <div class="msg-time">${formattedTime}</div>
       </div>
     `;
   } else if (data.name !== currentUser) {
@@ -164,6 +225,7 @@ onChildAdded(ref(db, "messages"), (snapshot) => {
       <div class="msg-info">
         <span class="username">${data.name}</span>
         <div class="message-bubble">${data.text}</div>
+        <div class="msg-time">${formattedTime}</div>
       </div>
     `;
   } else {
@@ -171,9 +233,15 @@ onChildAdded(ref(db, "messages"), (snapshot) => {
       <div class="msg-info">
         <div class="message-bubble">${data.text}</div>
         <div class="msg-actions">
-          <button class="edit-btn" data-id="${key}">✏️</button>
-          <button class="del-btn" data-id="${key}">🗑️</button>
+          <button class="edit-btn" data-id="${key}">
+            <img src="./images/write.png" alt="Edit" class="icon">
+          </button>
+          <button class="del-btn" data-id="${key}">
+            <img src="./images/trash.png" alt="Delete" class="icon">
+          </button>
         </div>
+        <div class="msg-time">${formattedTime}</div>
+        <div class="edited-label" style="display:none; font-size:0.7rem; color:#ff02a2;">(edited)</div>
       </div>
     `;
   }
@@ -181,16 +249,20 @@ onChildAdded(ref(db, "messages"), (snapshot) => {
   messageBox.appendChild(msgWrapper);
   messageBox.scrollTop = messageBox.scrollHeight;
 
-  // Edit
+  // ------------------ EDIT FUNCTIONALITY ------------------
   msgWrapper.querySelector(".edit-btn")?.addEventListener("click", async () => {
     const newText = prompt("Edit your message:", data.text);
     if (newText && newText.trim()) {
-      await update(ref(db, "messages/" + key), { text: newText });
+      await update(ref(db, "messages/" + key), { text: newText, edited: true });
+
+      // Update DOM
       msgWrapper.querySelector(".message-bubble").textContent = newText;
+      const editedLabel = msgWrapper.querySelector(".edited-label");
+      editedLabel.style.display = "block";
     }
   });
 
-  // Delete
+  // ------------------ DELETE FUNCTIONALITY ------------------
   msgWrapper.querySelector(".del-btn")?.addEventListener("click", async () => {
     if (confirm("Delete this message?")) {
       await remove(ref(db, "messages/" + key));
@@ -202,29 +274,42 @@ onChildAdded(ref(db, "messages"), (snapshot) => {
 // -------------------- THEME TOGGLE --------------------
 const body = document.body;
 const themeToggle = document.getElementById("themeToggle");
+
+body.classList.remove("light", "dark");
 const savedTheme = localStorage.getItem("theme") || "light";
 body.classList.add(savedTheme);
-if (themeToggle) themeToggle.textContent = savedTheme === "light" ? "🌙" : "☀️";
+if (themeToggle) {
+  themeToggle.textContent = savedTheme === "light" ? "🌙" : "☀️";
+}
 
 themeToggle?.addEventListener("click", () => {
   if (body.classList.contains("light")) {
-    body.classList.replace("light", "dark");
-    themeToggle.textContent = "☀️";
+    body.classList.remove("light");
+    body.classList.add("dark");
     localStorage.setItem("theme", "dark");
+    themeToggle.textContent = "☀️";
   } else {
-    body.classList.replace("dark", "light");
-    themeToggle.textContent = "🌙";
+    body.classList.remove("dark");
+    body.classList.add("light");
     localStorage.setItem("theme", "light");
+    themeToggle.textContent = "🌙";
+  }
+});
+
+
+// ENTER key press pe message send
+document.getElementById("message").addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {       // Agar Enter press hua
+    e.preventDefault();           // Prevent line break
+    document.getElementById("sendBtn").click(); // Send button click trigger
   }
 });
 
 // -------------------- WALLPAPER CHANGE --------------------
-// 🌸 Wallpaper Customization System
 const wallpaperPanel = document.getElementById("wallpaperPanel");
 const wallpaperSelectBtn = document.getElementById("wallpaperSelect");
 const chatBox = document.querySelector(".chat-container");
 
-// toggle panel on dropdown click
 wallpaperSelectBtn?.addEventListener("click", () => {
   wallpaperPanel.style.display =
     wallpaperPanel.style.display === "none" || !wallpaperPanel.style.display
@@ -232,7 +317,6 @@ wallpaperSelectBtn?.addEventListener("click", () => {
       : "none";
 });
 
-// prebuilt wallpaper select
 document.querySelectorAll(".wall-option").forEach((img) => {
   img.addEventListener("click", () => {
     const imgUrl = `url(${img.src})`;
@@ -245,7 +329,6 @@ document.querySelectorAll(".wall-option").forEach((img) => {
   });
 });
 
-// upload from gallery
 document.getElementById("uploadWallpaper")?.addEventListener("click", () => {
   const input = document.createElement("input");
   input.type = "file";
@@ -269,7 +352,6 @@ document.getElementById("uploadWallpaper")?.addEventListener("click", () => {
   };
 });
 
-// load saved wallpaper on refresh
 const savedBg = localStorage.getItem("wallpaper");
 if (savedBg) {
   chatBox.style.backgroundImage = savedBg;
@@ -278,34 +360,19 @@ if (savedBg) {
   chatBox.style.backgroundPosition = "center";
 }
 
-
-
-
-
-
 // -------------------- EMOJI PICKER --------------------
 const emojiBtn = document.getElementById("emojiBtn");
 const messageInput = document.getElementById("message");
-
-// Create emoji picker
 const picker = new EmojiButton({
   position: "top-end",
-  theme: "auto", // auto adjust for dark/light
+  theme: "auto",
   emojiVersion: "14.0",
   zIndex: 9999,
 });
-
-emojiBtn.addEventListener("click", () => {
-  picker.togglePicker(emojiBtn);
-});
-
+emojiBtn?.addEventListener("click", () => picker.togglePicker(emojiBtn));
 picker.on("emoji", (selection) => {
   messageInput.value += selection.emoji;
 });
-
-
-
-
 
 // -------------------- VOICE MESSAGE --------------------
 const voiceBtn = document.getElementById("voiceBtn");

@@ -20,35 +20,69 @@ body.light {
   background: linear-gradient(135deg, #f4b2d3, #d68bbc, #ffffff);
 }
 
-/* 🌚 Dark Mode (New Softer Theme) */
+/* 🌚 Dark Mode (Signup Page Inspired) */
 body.dark {
-  background: linear-gradient(135deg, #2a1a40, #4b2356, #602a6c);
-  color: #f9eaff;
+  background: linear-gradient(135deg, #000000, #0c0c0c, #1a1a1a);
+  color: #ffffff;
 }
 
-/* Dark mode chat container */
+/* Chat container */
 body.dark .chat-container {
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 25px rgba(255, 150, 220, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
 }
 
-/* Dark header */
+/* Header */
 body.dark .chat-header {
-  background: linear-gradient(90deg, #b95cff, #ff66b3, #ff9bd7);
-  color: white;
+  background: linear-gradient(90deg, #00fff0, #00c2a8, #087155);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
 }
 
-/* Dark input field */
+/* Input */
 body.dark .input-area input {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 255, 255, 0.3);
 }
 
-/* Dark buttons */
+/* Buttons */
 body.dark .input-area button {
-  background: linear-gradient(90deg, #ff9bd7, #c74fff, #9232a8);
-  color: #fff;
+  background: linear-gradient(90deg, #00fff0, #00c2a8, #087155);
+  color: #000;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+body.dark .input-area button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+}
+
+/* Sent messages */
+body.dark .sent .msg-info {
+  background: linear-gradient(135deg, #00fff0, #00c2a8);
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* Received messages */
+body.dark .received .msg-info {
+  background: rgba(255, 255, 255, 0.12);
+  color: #eaeaea;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Emoji picker */
+body.dark .emoji-picker {
+  background: #111;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+/* Scrollbar */
+body.dark .message-box::-webkit-scrollbar-thumb {
+  background-color: #00fff0;
 }
 
 /* 💬 Chat Container */
@@ -70,6 +104,8 @@ body.dark .input-area button {
   overflow: hidden;
   transition: background-image 0.4s ease-in-out;
 }
+
+/* Wallpaper panel */
 .wallpaper-panel {
   position: fixed;
   top: 60px;
@@ -114,13 +150,7 @@ body.dark .input-area button {
   cursor: pointer;
 }
 
-
-
-body.dark .chat-container {
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 25px rgba(255, 0, 180, 0.3);
-}
-
+/* Light Mode container */
 body.light .chat-container {
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 0 15px rgba(255, 0, 120, 0.15);
@@ -134,25 +164,33 @@ body.light .chat-container {
   padding: 18px 25px;
   font-weight: 600;
 }
-
 .chat-header img {
   width: 50px;
   height: 50px;
+}
+body.dark .chat-header img{
+  filter: invert(1);
 }
 
 .heading {
   display: flex;
   align-items: center;
 }
-
-body.dark .chat-header {
-  background: linear-gradient(90deg, #ff9bd7, #ff02a2, rgb(110, 48, 90));
-  color: white;
+body.dark .heading h2 {
+  background: linear-gradient(45deg, #133437, #166c71, rgb(255, 157, 0));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+/* Light header */
 body.light .chat-header {
   background: linear-gradient(90deg, #ffe2f3, #ffc0e5, #ff99cc);
   color: #333;
+}
+body.light .heading h2 {
+  background: linear-gradient(45deg, #ff9bd7, #ff02a2, rgb(255, 204, 0));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Header Buttons */
@@ -160,9 +198,9 @@ body.light .chat-header {
   display: flex;
   gap: 10px;
 }
-#logout img{
-  width: 22px;
-  height: 22px;
+#logout img {
+  width: 20px;
+  height: 20px;
 }
 
 .header-buttons button {
@@ -173,7 +211,6 @@ body.light .chat-header {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 body.dark .header-buttons button {
   background: rgba(255, 255, 255, 0.15);
   color: white;
@@ -182,7 +219,6 @@ body.light .header-buttons button {
   background: rgba(0, 0, 0, 0.08);
   color: #333;
 }
-
 .header-buttons button:hover {
   transform: scale(1.07);
 }
@@ -198,7 +234,6 @@ body.light .header-buttons button {
   scrollbar-width: thin;
   scrollbar-color: #ff9bd7 transparent;
 }
-
 .message-box::-webkit-scrollbar {
   width: 6px;
 }
@@ -214,7 +249,6 @@ body.light .header-buttons button {
   gap: 10px;
   animation: fadeIn 0.3s ease;
 }
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
@@ -234,13 +268,20 @@ body.light .header-buttons button {
   word-wrap: break-word;
   box-shadow: 0 0 12px rgba(255, 0, 180, 0.4);
 }
+body.dark .sent .msg-info{
+  color: white;
+  /* background: linear-gradient(90deg,  rgb(0, 255, 225), rgb(12, 199, 196)); */
+}
 
 /* ✏️ Edit/Delete Buttons */
 .msg-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 4px;
+  opacity: 0;           /* Make sure hidden initially */
+  pointer-events: none; /* Prevent click when hidden */
   gap: 8px;
+  transition: opacity 0.3s ease;
+
 }
 .msg-actions button {
   border: none;
@@ -249,10 +290,51 @@ body.light .header-buttons button {
   font-size: 1.1rem;
   cursor: pointer;
   transition: transform 0.2s;
+  padding: 0;
+  border: none;
+
 }
 .msg-actions button:hover {
   transform: scale(1.2);
 }
+
+/* Show buttons on message hover */
+.msg-wrapper.sent:hover .msg-actions {
+  opacity: 1;
+   pointer-events: auto;
+}
+
+
+.msg-actions .icon {
+  width: 20px;
+  height: 20px;
+}
+
+/*time and edit */
+.msg-time {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 3px;
+  text-align: right;
+}
+
+.edited-label {
+  color: #ffffff !important;
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-left: 5px;
+}
+/* body.dark .edit-btn {
+  color: white;
+} */
+
+
+/* Optional hover effect on icon */
+.msg-actions button:hover .icon {
+    transform: scale(1.2);
+  transition: 0.2s;
+}
+
 
 /* 🟣 Received */
 .received {
@@ -270,19 +352,18 @@ body.light .header-buttons button {
   color: #fff;
 }
 .received .msg-info {
-  background: rgba(255, 255, 255, 0.15);
   border-radius: 18px 18px 18px 0;
   padding: 10px 15px;
   max-width: 70%;
-  color: #fff;
   word-wrap: break-word;
+}
+body.dark .received .msg-info{
+  background: linear-gradient(45deg, #0a9caa, rgb(255, 247, 0));
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 body.light .received .msg-info {
   background: rgba(255, 255, 255, 0.9);
-  color: #333;
-}
-body.dark .received .msg-info {
-  background: linear-gradient(90deg, #ff9bf0, #ffffff);
   color: #333;
 }
 
@@ -304,7 +385,6 @@ body.dark .received .msg-info {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
 }
-
 .input-area input {
   flex: 1;
   padding: 12px 15px;
@@ -313,23 +393,21 @@ body.dark .received .msg-info {
   outline: none;
   font-size: 15px;
   transition: all 0.3s ease;
-}
-
-body.dark .input-area input {
-  background: linear-gradient(90deg, #ff9bf0, #ffffff);
-  color: #000000;
+  
 }
 body.light .input-area input {
   background: #fff;
   color: #333;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-
+body.dark .input-area input{
+    /* background: linear-gradient(45deg, #00eaff,#0c909c , rgb(184, 178, 18)); */
+    color: black;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
 .input-area input:focus {
   box-shadow: 0 0 10px rgba(255, 110, 196, 0.4);
 }
-
-/* 🪄 Send Button */
 .input-area button {
   padding: 12px 20px;
   border-radius: 12px;
@@ -340,35 +418,39 @@ body.light .input-area input {
   color: #fff;
   transition: all 0.3s ease;
 }
-
 .input-area button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(255, 0, 140, 0.5);
 }
+#sendBtn , #wallpaperSelect{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+#sendBtn img , #wallpaperSelect img{
+  width: 20px;
+  height: 20px;
+  align-items: center;
+}
+#wallpaperSelect img {
+  filter: invert(0);
+}
 
-/* 💛 Emoji Picker (Added, WhatsApp Style Popup) */
-
+#logout img {
+  filter: invert(1);
+}
+/* 💛 Emoji Picker */
 #emojiBtn {
   font-size: 24px;
   cursor: pointer;
   background: none;
   border: none;
 }
-
 #emoji-picker {
   z-index: 100;
   box-shadow: 0 0 10px rgba(255, 0, 180, 0.3);
   border-radius: 10px;
-}
-
-
-body.light .emoji-picker {
-  background: #fff;
-}
-
-body.dark .emoji-picker {
-  background: #2b1d33;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* 📱 Responsive */
@@ -388,7 +470,6 @@ body.dark .emoji-picker {
     font-size: 0.9rem;
     padding: 10px 16px;
   }
-
   .emoji-picker {
     bottom: 60px;
     right: 5px;

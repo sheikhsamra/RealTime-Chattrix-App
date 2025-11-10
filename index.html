@@ -5,16 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chattrix App</title>
   <link rel="stylesheet" href="index.css" />
-  </head>
-<body>
+</head>
+<body class="light">
+  <div class="container-row">
   <div class="wrapper">
-    <!-- Left Image / Animation -->
+    <!-- Left Side Content -->
     <div class="left-side">
-      <div class="overlay"></div>
-      <img src="./images/chat.png" alt="chat-img" class="chat-img">
+      <div class="btn-section">
+        <button id="themeToggle">🌙</button>
+      </div>
+      
       <div class="text-content">
         <h2>Welcome to <span>Chattrix</span></h2>
-        <p>Connect, chat and grow your ideas in a colorful world 🌈</p>
+        <p>Connect, chat, and grow your ideas in a colorful world 🌈</p>
       </div>
     </div>
 
@@ -27,17 +30,35 @@
         <button id="signup">Sign Up</button>
 
         <p>Already have an account? <a href="./login.html">Login</a></p>
+
         <button id="google-btn">
-        <img src="./images/google.png" alt="" id="google-icon">
-                Continue with Google
+          <img src="./images/google.png" alt="" id="google-icon">
+          Continue with Google
         </button>
 
         <small>Use any email (password ≥ 6 chars). After signup/login you'll choose a username.</small>
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="module" src="app.js"></script>
 
+  <!-- App Details Section -->
+  <section class="app-details">
+    <h1 class="animated-gradient">✨ Designed & Developed by Samra Moinuddin</h1>
+    <h2>Chattrix App Features 🌟</h2>
+    <p>Explore all the amazing functionalities of Chattrix:</p>
+    <ul>
+      <li>💬 A Group Chat App </li>
+      <li>🔐 User Authentication</li>
+      <li>🌗 Theme Toggle</li>
+      <li>🖼️ Custom Chat Wallpaper</li>
+      <li>😄 Emoji Support</li>
+      <li>✏️ Edit & Delete Messages</li>
+      <li>👥 Real-Time Group Chat</li>
+    </ul>
+  </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
