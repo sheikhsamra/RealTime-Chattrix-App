@@ -28,7 +28,17 @@ body.light.dark {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* flex-direction: column; */
   gap: 20px;
+}
+@media (max-width: 940px){
+  .container-row{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
 }
 
 
@@ -92,20 +102,31 @@ body.light .left-side {
   color: #333;
 }
 .btn-section {
-  position: absolute; /* Top-left me fix karne ke liye */
+  position: absolute;
   top: 20px;
-  left: 20px;
+  right: 20px;
+}
+@media (max-width: 900px) {
+  .btn-section {
+    position: relative;
+    left: 50px;
+    margin-bottom: 15px; /* add some space below */
+  }
+  #themeToggle {
+    width: 50px;
+  }
 }
 
 #themeToggle {
   padding: 8px 12px;
+  left: 150px;
   font-size: 18px;
   border: none;
-  background: linear-gradient(135deg, #00fbff, rgb(0, 255, 247), #087155);
   border-radius: 8px;
   cursor: pointer;
   color: #000;
   transition: all 0.3s ease;
+  background: linear-gradient(135deg, #00fbff, rgb(0, 255, 247), #087155);
 }
 
 /* 💫 Hover effect */
